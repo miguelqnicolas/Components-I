@@ -147,7 +147,7 @@ function createComponent(object) {
     div.classList.add('article');
     p.classList.add('date');
     
-    // button classes
+    // button classes, why in https://codepen.io/cgorton/pen/ymbOOp?editors=0110 were useless button classes made
     
     button.classList.add('expandButton');
 
