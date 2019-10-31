@@ -1,5 +1,6 @@
 /* This is the data we will be using to create our article components */
 /* Look over this data, then proceed to line 91*/
+
 const data = [
   {
     title: 'Lambda School Students: "We\'re the best!"',
@@ -85,6 +86,22 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Creating an Alexa Candy Dispenser for Halloween',
+    date: 'Oct. 30th, 2019',
+    firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
 
@@ -101,7 +118,7 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
+  *** Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
 
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
 
@@ -112,3 +129,55 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function createComponent(object) {    
+    const div = document.createElement('div');
+    
+    const h2 = document.createElement('h2');
+    const p = document.createElement('p');
+    
+    const p1 = document.createElement('p');
+    const p2 = document.createElement('p');
+    const p3 = document.createElement('p');
+    
+    const button = document.createElement('span');
+    
+    div.append(h2, p, p1, p2, p3, button);
+
+    div.classList.add('article');
+    p.classList.add('date');
+    
+    // button classes, why in https://codepen.io/cgorton/pen/ymbOOp?editors=0110 were useless button classes made
+    
+    button.classList.add('expandButton');
+
+    h2.textContent = object.title;
+    p.textContent = object.date;
+    
+    p1.textContent = object.firstParagraph;
+    p2.textContent = object.secondParagraph;
+    p3.textContent = object.thirdParagraph;
+
+    // button content
+
+    button.textContent = 'Expand';
+
+    button.addEventListener('click', () => {
+        div.classList.toggle('article-open');
+        if (div.classList.length < 2) {
+          button.textContent = 'Expand';
+        } else {
+          button.textContent = 'Collapse';
+        }
+    });
+
+    // want to get collapse to change back, what i did was console.log div to see what was changing and used that to create a condition
+
+    return div;
+}
+
+const article = document.querySelector('.articles');
+
+data.forEach(function(object) {
+    article.appendChild(createComponent(object));
+});
