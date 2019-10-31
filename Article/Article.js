@@ -130,41 +130,54 @@ const data = [
 
 */
 
-const article = document.querySelector('.articles');
-
-function createComponent(title, date, firstParagraph, secondParagraph, thirdParagraph) {    
+function createComponent(object) {    
     const div = document.createElement('div');
+    
     const h2 = document.createElement('h2');
     const p = document.createElement('p');
+    
     const p1 = document.createElement('p');
     const p2 = document.createElement('p');
     const p3 = document.createElement('p');
-    const span = document.createElement('span');
-
-    div.append(h2, p, p1, p2, p3, span);
+    
+    const button = document.createElement('span');
+    
+    div.append(h2, p, p1, p2, p3, button);
 
     div.classList.add('article');
     p.classList.add('date');
-    span.classList.add('expandButton');
-
-    h2.textContent = title;
-    p.textContent = date;
-    p1.textContent = firstParagraph;
-    p2.textContent = secondParagraph;
-    p3.textContent = thirdParagraph;
     
-    span.textContent = 'Expand';
+    // button classes
+    
+    button.classList.add('expandButton');
 
-    span.addEventListener('click', () => {
+    h2.textContent = object.title;
+    p.textContent = object.date;
+    
+    p1.textContent = object.firstParagraph;
+    p2.textContent = object.secondParagraph;
+    p3.textContent = object.thirdParagraph;
+
+    // button content
+
+    button.textContent = 'Expand';
+
+    button.addEventListener('click', () => {
         div.classList.toggle('article-open');
-        span.textContent = 'Collapse';
+        if (div.classList.length < 2) {
+          button.textContent = 'Expand';
+        } else {
+          button.textContent = 'Collapse';
+        }
     });
 
-    // want to get collapse to change back
+    // want to get collapse to change back, what i did was console.log div to see what was changing and used that to create a condition
 
     return div;
 }
 
-data.forEach(function(iteration) {
-    article.appendChild(createComponent(iteration.title, iteration.date, iteration.firstParagraph, iteration.secondParagraph, iteration.thirdParagraph));
+const article = document.querySelector('.articles');
+
+data.forEach(function(object) {
+    article.appendChild(createComponent(object));
 });
